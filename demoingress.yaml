@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: demoingress
+spec:
+  backend:
+    serviceName: yellowserv
+    servicePort: 80
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: yellowserv
+          servicePort: 80
+        path: /yellow.html
+      - backend:
+          serviceName: greenserv
+          servicePort: 80
+        path: /green.html

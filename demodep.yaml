@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demodep
+  namespace: demons
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      type: deploymentpod
+  template:
+    metadata:
+      labels:
+        type: deploymentpod
+    spec:
+      containers:
+      - name: d1
+        image: tomcat:8.0
+      - name: t2
+        image: tutum/apache-php
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: demoserv
+  namespace: demons
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    type: deploymentpod
+

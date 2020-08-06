@@ -1,0 +1,37 @@
+apiVersion: v1 
+kind: Pod
+metadata:
+  name: emppod
+  namespace: demons
+  labels:
+    env: emp
+spec:
+#  nodeName: gke-mygke-default-pool-6af10c4f-3m2r
+  containers:
+  - name: c1
+    image: nginx
+    volumeMounts:
+    - name: empvol
+      mountPath: /usr/share/nginx/html
+  - name: c2
+    image: centos:6
+    command: [/bin/sh,-c,'while true;do X=$[$X+1];echo "<center><h1>$X</h1></center>" > /datavol/index.html; sleep 1;done']
+    volumeMounts:
+    - name: empvol
+      mountPath: /datavol
+  volumes:
+  - name: empvol
+    emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: empserv
+  namespace: demons
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    env: emp         

@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: demojob
+  namespace: demons
+spec:
+  completions: 11 
+  parallelism: 2
+  template:
+    metadata:
+      name: jobpod
+    spec:
+      containers:
+      - name: j1
+        image: centos:6
+        command: [/bin/sh,-c,'sleep 5']
+      restartPolicy: Never

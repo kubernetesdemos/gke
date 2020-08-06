@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: demods
+  namespace: demons
+spec:
+  selector:
+    matchLabels:
+      type: dspod
+  template:
+    metadata:
+      labels:
+        type: dspod
+    spec:
+      containers:
+      - name: d1
+        image: tomcat:8.0
+      - name: t2
+        image: tutum/apache-php

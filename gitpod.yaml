@@ -1,0 +1,20 @@
+apiVersion: v1 
+kind: Pod
+metadata:
+  name: gitpod
+  namespace: demons
+  labels:
+    env: dev
+spec:
+        # nodeName: gke-mygke-default-pool-6af10c4f-3m2r
+  containers:
+  - name: c1
+    image: centos:6
+    command: [/bin/sh,-c,'sleep 300']
+    volumeMounts:
+    - name: gitvol
+      mountPath: /gitrepo
+  volumes:
+  - name: gitvol
+    gitRepo:
+      repository: https://github.com/rathihimanshutestcode/aksexample

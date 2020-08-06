@@ -1,0 +1,20 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: democron
+  namespace: demons
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    metadata:
+      name: cronjob
+    spec:
+      template:
+        metadata:
+          name: cronpod
+        spec:
+          containers:
+          - name: cron1
+            image: centos:6
+            command: [/bin/sh,-c,'sleep 5']
+          restartPolicy: Never
